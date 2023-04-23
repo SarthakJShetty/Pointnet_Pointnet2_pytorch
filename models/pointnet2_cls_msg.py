@@ -3,9 +3,9 @@ import torch.nn.functional as F
 from Pointnet_Pointnet2_pytorch.models.pointnet2_utils import PointNetSetAbstractionMsg, PointNetSetAbstraction
 
 
-class get_model(nn.Module):
+class get_pn2_cls_model(nn.Module):
     def __init__(self,num_class,normal_channel=True):
-        super(get_model, self).__init__()
+        super(get_pn2_cls_model, self).__init__()
         in_channel = 4 if normal_channel else 0
         self.normal_channel = normal_channel
         self.sa1 = PointNetSetAbstractionMsg(512, [0.1, 0.2, 0.4], [16, 32, 128], in_channel,[[32, 32, 64], [64, 64, 128], [64, 96, 128]])
