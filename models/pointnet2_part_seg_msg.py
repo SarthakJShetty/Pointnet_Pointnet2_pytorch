@@ -1,12 +1,12 @@
 import torch.nn as nn
 import torch
 import torch.nn.functional as F
-from models.pointnet2_utils import PointNetSetAbstractionMsg,PointNetSetAbstraction,PointNetFeaturePropagation
+from Pointnet_Pointnet2_pytorch.models.pointnet2_utils import PointNetSetAbstractionMsg,PointNetSetAbstraction,PointNetFeaturePropagation
 
 
-class get_model(nn.Module):
-    def __init__(self, num_classes, additional_channel=2, normal_channel=False):
-        super(get_model, self).__init__()
+class get_pn2_seg_model(nn.Module):
+    def __init__(self, num_classes=1, additional_channel=2, normal_channel=True):
+        super(get_pn2_seg_model, self).__init__()
         if normal_channel:
             self.additional_channel = additional_channel
         else:
@@ -46,7 +46,7 @@ class get_model(nn.Module):
         feat = F.relu(self.bn1(self.conv1(l0_points)))
         x = self.drop1(feat)
         x = self.conv2(x)
-        x = F.log_softmax(x, dim=1)
+        x = F.softplus(x)
         x = x.permute(0, 2, 1)
         return x, l3_points
 
