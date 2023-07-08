@@ -40,7 +40,6 @@ class get_pn2_seg_model(nn.Module):
         l2_points = self.fp3(l2_xyz, l3_xyz, l2_points, l3_points)
         l1_points = self.fp2(l1_xyz, l2_xyz, l1_points, l2_points)
 
-        # from pdb import set_trace; set_trace()
         l0_points = self.fp1(l0_xyz, l1_xyz, l0_points, l1_points)
         # FC layers
         feat = F.relu(self.bn1(self.conv1(l0_points)))
